@@ -60,7 +60,6 @@ app.get('/gameMessages/:id', (req, res) => {
 app.post('/createGame', (req, res) => {
     const id = Date.now().toString()
     try {
-        console.log('uno')
         const gameTocreate = {
             id,
             state: false,
@@ -75,10 +74,11 @@ app.post('/createGame', (req, res) => {
             name: req.body.gameName,
             messages: []
         }
-        console.log('dos')
         games.push(gameTocreate)
-        console.log('gamecreated', games)
+        console.log('gamecreated')
         const idEncrypted = Encryption.encrypt(id)
+        console.log('after encryption')
+
         return sendResponse(res, { id: idEncrypted })
 
     } catch (error) {
