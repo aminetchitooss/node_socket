@@ -21,6 +21,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const games = new Array(new Game)
+games.pop()
 
 app.use(cors({ origin: true }))
 var server = http.createServer(app);
@@ -59,6 +60,7 @@ app.get('/gameMessages/:id', (req, res) => {
 app.post('/createGame', (req, res) => {
     const id = Date.now().toString()
     try {
+        console.log('uno')
         const gameTocreate = {
             id,
             state: false,
@@ -73,8 +75,9 @@ app.post('/createGame', (req, res) => {
             name: req.body.gameName,
             messages: []
         }
+        console.log('dos')
         games.push(gameTocreate)
-        console.log(games)
+        console.log('gamecreated', games)
         const idEncrypted = Encryption.encrypt(id)
         return sendResponse(res, { id: idEncrypted })
 
